@@ -1,11 +1,9 @@
 #pragma once
 
 #pragma region Enum
-enum class DamageType
-{
-    Melee,
-    Range,
-    Magic
+enum class ObejectType {
+    Player,
+    Enemy
 };
 #pragma endregion
 

@@ -5,6 +5,7 @@ Player::Player(Stat stat)
 {
 	this->_stat = stat;
 	_currnetHealth = stat.maxHealth;
+	_objectType = ObejectType::Player;
 }
 
 void Player::Update()
