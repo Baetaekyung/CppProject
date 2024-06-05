@@ -1,11 +1,12 @@
 #include "Object.h"
 #pragma once
 
-class Player : virtual public Object
+class Player : public Object
 {
 public: // Deafult
 	Stat _stat; // 스탯
 	int _currnetHealth; // 현재 체력
+	ObejectType _objectType;
 	
 	Player(Stat stat);
 public: // Fnc
