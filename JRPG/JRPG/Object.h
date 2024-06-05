@@ -1,25 +1,47 @@
 #pragma once
+
+#pragma region Enum
+enum class DamageType
+{
+    Melee,
+    Range,
+    Magic
+};
+#pragma endregion
+
+#pragma region Struct
+struct Stat
+{
+    int strength; // Èû
+    int    maxHealth; // Ã¼·Â
+    int agility; // ¹ÎÃ¸¼º
+    float ciritalChance; // Å©¸®Æ¼ÄÃ È®·ü
+    float ciritalDamage; // Å©¸®Æ¼ÄÃ µ¥¹ÌÁö
+    int armor; // ¹æ¾î
+};
+#pragma endregion
+
 class Object
 {
 public:
     virtual void Update() abstract;
     virtual void Render() abstract;
-    virtual void Attack(Object target) abstract;
+    virtual void Attack(IDamageable target) abstract;
     virtual void Defence(int damage) abstract;
     virtual void RunAway() abstract;
     virtual void UseItem() abstract;
     virtual void UseSkill() abstract;
 public:
-    struct Stat
-    {
-        int strength; // Èû
-        int    maxHealth; // Ã¼·Â
-        int agility; // ¹ÎÃ¸¼º
-        float ciritalChance; // Å©¸®Æ¼ÄÃ È®·ü
-        float ciritalDamage; // Å©¸®Æ¼ÄÃ µ¥¹ÌÁö
-        int armor; // ¹æ¾î
-    };
+
 public:
     bool isPlayer = false;
+};
+
+class IDamageable {
+public:
+    void ApplyDamage(int damage, DamageType damageType);
+public:
+    bool _canAttack;
+    IDamageable();
 };
 

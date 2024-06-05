@@ -1,37 +1,21 @@
+#include "Object.h"
 #pragma once
 
-struct PlayerStat
+class Player : virtual public Object
 {
-	int strength; // Èû
-	int	maxHealth; // Ã¼·Â
-	int agility; // ¹ÎÃ¸¼º
-	float ciritalChance; // Å©¸®Æ¼ÄÃ È®·ü
-	float ciritalDamage; // Å©¸®Æ¼ÄÃ µ¥¹ÌÁö
-	int armor; // ¹æ¾î
-};
-
-class Player
-{
-public:
-	PlayerStat _stat; // ½ºÅÈ
+public: // Deafult
+	Stat _stat; // ½ºÅÈ
 	int _currnetHealth; // ÇöÀç Ã¼·Â
 	
-	Player(PlayerStat stat) {
-		this->_stat = stat;
-		_currnetHealth = stat.maxHealth;
-	}
-	
-	bool Attack() {
-
-	}
-	bool Defense(int damage) {
-		if (damage <= _stat.armor) {
-			--_currnetHealth;
-		}
-		else {
-			_currnetHealth -= (damage - _stat.armor);
-		}
-	}
-private:
+	Player(Stat stat);
+public: // Fnc
+	// ObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	void Update() override;
+	void Render() override;
+	void Attack() override;
+	void Defence(int damage) override;
+	void RunAway() override;
+	void UseItem() override;
+	void UseSkill() override;
 };
 
