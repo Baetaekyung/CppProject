@@ -1,4 +1,14 @@
 #pragma once
+struct Stat
+{
+    int strength; // Èû
+    int maxHealth; // Ã¼·Â
+    int agility; // ¹ÎÃ¸¼º
+    float ciritalChance; // Å©¸®Æ¼ÄÃ È®·ü
+    float ciritalDamage; // Å©¸®Æ¼ÄÃ µ¥¹ÌÁö
+    int armor; // ¹æ¾î
+};
+
 class Object
 {
 public:
@@ -10,16 +20,7 @@ public:
     virtual void UseItem() abstract;
     virtual void UseSkill() abstract;
 public:
-    struct Stat
-    {
-        int strength; // Èû
-        int    maxHealth; // Ã¼·Â
-        int agility; // ¹ÎÃ¸¼º
-        float ciritalChance; // Å©¸®Æ¼ÄÃ È®·ü
-        float ciritalDamage; // Å©¸®Æ¼ÄÃ µ¥¹ÌÁö
-        int armor; // ¹æ¾î
-    };
-public:
+    Stat stat;
     bool isPlayer = false;
 };
 
