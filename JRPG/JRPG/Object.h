@@ -13,7 +13,7 @@ enum class DamageType
 struct Stat
 {
     int strength; // 힘
-    int    maxHealth; // 체력
+    int maxHealth; // 체력
     int agility; // 민첩성
     float ciritalChance; // 크리티컬 확률
     float ciritalDamage; // 크리티컬 데미지
@@ -26,7 +26,7 @@ class Object
 public:
     virtual void Update() abstract;
     virtual void Render() abstract;
-    virtual void Attack(IDamageable target) abstract;
+    virtual void Attack() abstract;
     virtual void Defence(int damage) abstract;
     virtual void RunAway() abstract;
     virtual void UseItem() abstract;
@@ -35,13 +35,5 @@ public:
 
 public:
     bool isPlayer = false;
-};
-
-class IDamageable {
-public:
-    void ApplyDamage(int damage, DamageType damageType);
-public:
-    bool _canAttack;
-    IDamageable();
 };
 
