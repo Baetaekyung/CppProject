@@ -101,3 +101,15 @@ COORD GetConsoleResolution()
 	short height = buf.srWindow.Bottom - buf.srWindow.Top + 1;
 	return COORD{ width, height };
 }
+
+CONSOLE_FONT_INFOEX GetFontSize()
+{
+	CONSOLE_FONT_INFOEX font;
+	font.cbSize = sizeof(font);
+
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	GetCurrentConsoleFontEx(hOut, false, &font);
+
+	return font;
+}

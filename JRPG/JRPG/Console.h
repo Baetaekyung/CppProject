@@ -15,6 +15,7 @@ int GetColor();
 void LockResize();
 void SetFontSize(UINT weight, UINT sizex, UINT sizey);
 COORD GetConsoleResolution();
+CONSOLE_FONT_INFOEX GetFontSize();
 enum class COLOR
 {
     BLACK, BLUE, GREEN, SKYBLUE, RED,
