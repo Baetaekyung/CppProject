@@ -11,7 +11,7 @@ enum class Menu {
 Menu MenuRender();
 enum class KEY
 {
-	UP, DOWN, Enter, FAIL, Left, Right
+	UP, DOWN, Enter, FAIL, Left, Right, ESC
 };
 KEY KeyController();
 void EnterAnimation();
