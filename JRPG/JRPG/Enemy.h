@@ -1,12 +1,46 @@
 #pragma once
+
+enum class EnemyType
+{
+	GOBLIN,
+	SPIDER,
+	BEAR,
+	LIZARD
+};
+
+enum class SkillType
+{
+	DOUBLEATTACK,
+	ARMORUP,
+	AGILITYUP,
+	DAMAGEUP,
+	HEAL,
+};
+
+enum class EnemyItem
+{
+	HEALTHPOTION = 1,
+	DAMAGEUPPOTION = 2,
+	AGILITYPOTION = 3,
+	ARMORPOTION = 4,
+};
+
+enum class Behavior 
+{
+	USEITEM = 1,
+	ATTACK = 2,
+	RUNAWAY = 3,
+};
+
 class Enemy : public Object
 {
 public:
-	Enemy(int health, int damage,
+	Enemy(EnemyType type, int health, int damage,
 		int agility, int armor,
-		int criticalPercent, int criticalMultiplier);
+		int criticalPercent, int criticalMultiplier, bool myTurn);
 public:
 	void GetDamage(int damage);
+	void Dead();
 
 	// Object을(를) 통해 상속됨
 	void Update() override;
@@ -24,5 +58,9 @@ public:
 	void UseSkill() override;
 public:
 	Stat stat;
+	int currentHp;
+	EnemyType enemyType;
+	bool enemyTurn = true;
+	bool isDead = false;
 };
 
