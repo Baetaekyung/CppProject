@@ -92,9 +92,9 @@ void Enemy::Attack()
 	
 	if (randNum == 1)
 	{
-		cout << enemyName << "의 공격!" << '\n';
+		cout << "의 공격!" << '\n';
 		int damage = stat.strength;
-		cout << enemyName << "이 " << damage << "의 데미지를 주었다!" << '\n';
+		cout << "이 " << damage << "의 데미지를 주었다!" << '\n';
 	}
 	else
 	{
@@ -111,19 +111,19 @@ void Enemy::Defence(int damage)
 
 void Enemy::RunAway()
 {
-	cout << enemyName << "의 도망시도!!" << '\n';
+	cout << "의 도망시도!!" << '\n';
 
 	srand((unsigned int)time(NULL));
 	int success = rand() % 3 + 1;
 
 	if (success == 1)
 	{
-		cout << enemyName << "이 도망쳤다!" << '\n';
+		cout << "이 도망쳤다!" << '\n';
 		cout << "전투가 종료되었다." << '\n';
 	}
 	else 
 	{
-		cout << enemyName << "이 도망가는데에 실패했다!" << '\n';
+		cout << "이 도망가는데에 실패했다!" << '\n';
 	}
 }
 
@@ -137,25 +137,25 @@ void Enemy::UseItem()
 	case (int)EnemyItem::HEALTHPOTION:
 	{
 		currentHp += 10;
-		cout << enemyName << "이 회복포션을 사용하여 체력이 10 회복되었다!" << '\n';
+		cout << "이 회복포션을 사용하여 체력이 10 회복되었다!" << '\n';
 	}
 	break;
 	case (int)EnemyItem::DAMAGEUPPOTION:
 	{
 		stat.strength += 5;
-		cout << enemyName << "이 데미지포션을 사용하여 데미지가 5 증가하였다!" << '\n';
+		cout << "이 데미지포션을 사용하여 데미지가 5 증가하였다!" << '\n';
 	}
 	break;
 	case (int)EnemyItem::AGILITYPOTION:
 	{
 		stat.agility += 5;
-		cout << enemyName << "이 회피포션을 사용하여 회피확률이 5 증가하였다!" << '\n';
+		cout << "이 회피포션을 사용하여 회피확률이 5 증가하였다!" << '\n';
 	}
 	break;
 	case (int)EnemyItem::ARMORPOTION:
 	{
 		stat.armor += 5;
-		cout << enemyName << "이 방어력 포션을 사용하여 방어력이 5 증가하였다!" << '\n';
+		cout << "이 방어력 포션을 사용하여 방어력이 5 증가하였다!" << '\n';
 	}
 	break;
 	}
@@ -177,30 +177,30 @@ void Enemy::UseSkill()
 	break;
 	case (int)SkillType::ARMORUP:
 	{
-		cout << enemyName << "의 방어력 증가 스킬 발동!" << '\n';
+		cout <<  "의 방어력 증가 스킬 발동!" << '\n';
 		stat.armor += 5;
-		cout << enemyName << "의 방어력이 5 증가 하였다." << '\n';
+		cout <<  "의 방어력이 5 증가 하였다." << '\n';
 	}
 	break;
 	case (int)SkillType::AGILITYUP:
 	{
-		cout << enemyName << "의 회피력 증가 스킬 발동!" << '\n';
+		cout <<  "의 회피력 증가 스킬 발동!" << '\n';
 		stat.agility += 5;
-		cout << enemyName << "의 회피력이 5 증가 하였다." << '\n';
+		cout <<  "의 회피력이 5 증가 하였다." << '\n';
 	}
 	break;
 	case (int)SkillType::DAMAGEUP:
 	{
-		cout << enemyName << "의 공격력 증가 스킬 발동!" << '\n';
+		cout <<  "의 공격력 증가 스킬 발동!" << '\n';
 		stat.strength += 5;
-		cout << enemyName << "의 공격력이 5 증가 하였다." << '\n';
+		cout << "의 공격력이 5 증가 하였다." << '\n';
 	}
 	break;
 	case (int)SkillType::HEAL:
 	{
-		cout << enemyName << "의 체력 회복 스킬 발동!" << '\n';
+		cout << "의 체력 회복 스킬 발동!" << '\n';
 		currentHp += 5;
-		cout << enemyName << "의 체력이 5 회복되었다." << '\n';
+		cout << "의 체력이 5 회복되었다." << '\n';
 	}
 	break;
 	}
