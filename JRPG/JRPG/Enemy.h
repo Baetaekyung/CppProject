@@ -36,6 +36,8 @@ enum class Behavior
 class Enemy : public Object
 {
 public:
+	Enemy();
+
 	Enemy(EnemyType type, int health, int damage,
 		int agility, int armor,
 		int criticalPercent, int criticalMultiplier, bool myTurn);

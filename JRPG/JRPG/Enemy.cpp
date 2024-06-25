@@ -4,7 +4,11 @@
 #include "Enemy.h"
 #include "Information.h"
 
-Enemy::Enemy(EnemyType type, int health, int damage, int agility, 
+Enemy::Enemy()
+{
+}
+
+Enemy::Enemy(EnemyType type, int health, int damage, int agility,
 	int armor, int criticalPercent,
 	int criticalMultiplier, bool myTurn)
 {
@@ -23,19 +27,19 @@ Enemy::Enemy(EnemyType type, int health, int damage, int agility,
 	switch (enemyType)
 	{
 	case EnemyType::GOBLIN:
-		nameOfEnemy = L"  고블린  ";
+		nameOfEnemy = L"고블린";
 		break;
 	case EnemyType::SPIDER:
-		nameOfEnemy = L"   거미   ";
+		nameOfEnemy = L"거미";
 		break;
 	case EnemyType::BEAR:
-		nameOfEnemy = L"    곰    ";
+		nameOfEnemy = L"곰";
 		break;
 	case EnemyType::LIZARD:
-		nameOfEnemy = L"  도마뱀  ";
+		nameOfEnemy = L"도마뱀";
 		break;
 	case EnemyType::SLIME:
-		nameOfEnemy = L"  슬라임  ";
+		nameOfEnemy = L"슬라임";
 	default:
 		break;
 	}
