@@ -14,6 +14,6 @@ enum class KEY
 	UP, DOWN, Enter, FAIL, Left, Right, ESC
 };
 KEY KeyController();
-void EnterAnimation();
-void StageRender();
+int EnterAnimation();
+int StageRender();
 void StageRenderText(int a);

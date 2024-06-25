@@ -28,11 +28,6 @@ void Player::Defence(int damage)
 
 }
 
-void Player::RunAway()
-{
-
-}
-
 void Player::UseItem()
 {
 
