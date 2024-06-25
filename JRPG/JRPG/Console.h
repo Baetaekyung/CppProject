@@ -4,6 +4,7 @@
 using std::cout;
 using std::wcout;
 using std::endl;
+using std::wstring;
 
 void FullScreen();
 void Gotoxy(int x, int y);

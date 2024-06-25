@@ -2,10 +2,11 @@
 
 enum class EnemyType
 {
-	GOBLIN,
-	SPIDER,
-	BEAR,
-	LIZARD
+	GOBLIN = 1,
+	SPIDER = 2,
+	BEAR   = 3,
+	LIZARD = 4,
+	SLIME  = 5,
 };
 
 enum class SkillType
@@ -57,6 +58,7 @@ public:
 
 	void UseSkill() override;
 public:
+	wstring nameOfEnemy;
 	Stat stat;
 	int currentHp;
 	EnemyType enemyType;
