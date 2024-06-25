@@ -7,7 +7,8 @@
 
 int main()
 {
-	Stage stage = Stage(StageType::One);
+	Enemy enemy = Enemy(EnemyType::GOBLIN, 0, 0, 0, 0, 0, 0, true);
+	Stage stage = Stage(StageType::One, enemy);
 	FullScreen();
 	SetCursorVisual(false, 1);
 	if (!TitleScene())
@@ -16,7 +17,7 @@ int main()
 	while (true)
 	{
 		//system("cls");
-		RenderBattleUI(stage);
+		RenderBattleUI(stage, stage._isHasEnemy);
 	}
 
 	//Player player = Player(Stat{ 1, 1, 1, 1, 1, 1});

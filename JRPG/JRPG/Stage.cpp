@@ -4,7 +4,7 @@
 #include "Stage.h"
 #include "TitleScene.h"
 
-void RenderBattleUI(Stage stage)
+void RenderBattleUI(Stage stage, Enemy enemy)
 {
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 6;
@@ -18,10 +18,12 @@ void RenderBattleUI(Stage stage)
 	while (true)
 	{
 		if (fristRender) {
-			RenderUI(currentState);
+			RenderUI(currentState, enemy );
 			fristRender = false;
 		}
-		else {
+
+		while (true)
+		{
 			switch (posY)
 			{
 			case 0:
@@ -37,10 +39,7 @@ void RenderBattleUI(Stage stage)
 				currentState = PlayerState::Defence;
 				break;
 			}
-		}
 
-		while (true)
-		{
 			Gotoxy(x - 2, y);
 			cout << ">";
 
@@ -71,8 +70,9 @@ void RenderBattleUI(Stage stage)
 				break;
 			case KEY::Enter:
 			{
+				if (posY);
 				system("cls");
-				RenderUI(currentState);
+				RenderUI(currentState, enemy);
 			}
 			break;
 			}
@@ -80,13 +80,13 @@ void RenderBattleUI(Stage stage)
 	}
 }
 
-void RenderUI(PlayerState state) {
+void RenderUI(PlayerState state, Enemy enemy) {
 	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
 	COORD Resolution = GetConsoleResolution();
 	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	int x = Resolution.X / 9;
 	int y = Resolution.Y / 1.8;
-	//RenderUIText(state, x, y);
+	RenderUIText(state, x, y, enemy);
 	_setmode(_fileno(stdout), prevmode);
 }
 
@@ -114,7 +114,7 @@ void RenderUIText(PlayerState state, int x, int y, Enemy enemy)
 		Gotoxy(x, y + 8);
 		wcout << L"██        skill         ██                                                                                                      ██";
 		Gotoxy(x, y + 9);
-		wcout << L"██                      ██                                               ";
+		wcout << L"██                      ██                                                                                                      ██";
 		Gotoxy(x, y + 10);
 		wcout << L"██                      ██                                                                                                      ██";
 		Gotoxy(x, y + 11);
@@ -151,11 +151,27 @@ void RenderUIText(PlayerState state, int x, int y, Enemy enemy)
 		Gotoxy(x, y + 6);
 		wcout << L"██                      ██                                                                                                      ██";
 		Gotoxy(x, y + 7);
-		wcout << L"██                      ██                                                                                                      ██";
+		wcout << L"██                      ██                                                                                                      ██"; 
 		Gotoxy(x, y + 8);
 		wcout << L"██        skill         ██                                                                                                      ██";
 		Gotoxy(x, y + 9);
-		wcout << L"██                      ██                                                                                                      ██";
+		//wcout << L"██                      ██                                                                                                      ██";
+		for (int i = 0; i < 105; ++i) {
+			if (i == 0) {
+				wcout << L"██                      ██ ";
+			}
+			else if (i == (105 / 2) - enemy.nameOfEnemy.length()) {
+				wcout << enemy.nameOfEnemy.length();
+				i += enemy.nameOfEnemy.size();
+			}
+			else if (i == 103) {
+				wcout << L"██";
+				break;
+			}
+			else {
+				wcout << L" ";
+			}
+		}
 		Gotoxy(x, y + 10);
 		wcout << L"██                      ██                                                                                                      ██";
 		Gotoxy(x, y + 11);
