@@ -8,9 +8,13 @@ enum class StageType {
 class Stage {
 public:
 	StageType _currentStage;
+	Enemy _isHasEnemy = 
+		Enemy(EnemyType::GOBLIN, 0, 0, 0, 0, 0, 0, true);
 
-	Stage(StageType stage) {
+	Stage(StageType stage, Enemy enemy)
+	{
 		_currentStage = stage;
+		_isHasEnemy = enemy;
 	}
 
 
@@ -22,7 +26,7 @@ public:
 private:
 };
 
-void RenderBattleUI(Stage stage);
-void RenderUI(PlayerState state);
-void RenderUIText(PlayerState state, int x, int y);
+void RenderBattleUI(Stage stage, Enemy enemy);
+void RenderUI(PlayerState state, Enemy enemy);
+void RenderUIText(PlayerState state, int x, int y, Enemy enemy);
 
