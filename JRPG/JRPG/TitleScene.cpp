@@ -2,6 +2,8 @@
 #include<io.h>
 #include "Console.h"
 #include "TitleScene.h"
+#include "Stage.h"
+
 void TitleRenderer() 
 {
 	COORD Resolution = GetConsoleResolution();
@@ -33,7 +35,6 @@ bool TitleScene() {
 		switch (eMenu)
 		{
 		case Menu::Start:
-			EnterAnimation();
 			return true;
 		case Menu::Help:
 			InfoRender();
@@ -168,7 +169,7 @@ KEY KeyController()
 	return KEY::FAIL;
 }
 
-void EnterAnimation()
+int EnterAnimation()
 {
 	COORD Resolution = GetConsoleResolution();
 	int width = Resolution.X;
@@ -194,16 +195,17 @@ void EnterAnimation()
 	}
 	SetColor((int)COLOR::WHITE);
 	system("cls");
-	StageRender();
+	return StageRender();
 }
 
-void StageRender()
+int StageRender()
 {
 	system("cls");
 	int xPos = -1;
+	bool exit = false;
 
+	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
 	StageRenderText(xPos);
-
 	while (true)
 	{
 		KEY eKey = KeyController();
@@ -225,7 +227,8 @@ void StageRender()
 			break;
 		case KEY::Enter:
 		{
-			// 스테이지 시작
+			int curmode = _setmode(_fileno(stdout), prevmode);
+			return xPos + 2;
 		}
 		break;
 		}
@@ -234,7 +237,6 @@ void StageRender()
 
 void StageRenderText(int a)
 {
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 2.9;
 	int y = Resolution.Y / 2.2;

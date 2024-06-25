@@ -1,6 +1,11 @@
 #include "Object.h"
 #pragma once
 
+enum class PlayerState
+{
+	Attack = 1, Skill, Item, Defence, None
+};
+
 class Player : public Object
 {
 public: // Deafult
@@ -15,7 +20,6 @@ public: // Fnc
 	void Render() override;
 	void Attack() override;
 	void Defence(int damage) override;
-	void RunAway() override;
 	void UseItem() override;
 	void UseSkill() override;
 };
