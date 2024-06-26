@@ -26,7 +26,6 @@ public:
     virtual void Render() abstract;
     virtual void Attack() abstract;
     virtual void Defence(int damage) abstract;
-    virtual void RunAway() abstract;
     virtual void UseItem() abstract;
     virtual void UseSkill() abstract;
 public:
