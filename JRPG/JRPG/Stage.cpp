@@ -86,11 +86,11 @@ void RenderUI(PlayerState state) {
 	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	int x = Resolution.X / 9;
 	int y = Resolution.Y / 1.8;
-	RenderUIText(state, x, y);
+	//RenderUIText(state, x, y);
 	_setmode(_fileno(stdout), prevmode);
 }
 
-void RenderUIText(PlayerState state, int x, int y, Ene)
+void RenderUIText(PlayerState state, int x, int y, Enemy enemy)
 {
 	Gotoxy(x, y);
 	switch (state)

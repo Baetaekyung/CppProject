@@ -23,6 +23,6 @@ public:
 		L"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠒⠶⠿⣿⣿⣿⣿⣿⠿⠋⠀⠀",
 	};
 public:
-	void PlayAnimation();
+	void PlayAnimation(int x, int y, COLOR color);
 };
 

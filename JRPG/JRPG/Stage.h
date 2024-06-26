@@ -24,5 +24,5 @@ private:
 
 void RenderBattleUI(Stage stage);
 void RenderUI(PlayerState state);
-void RenderUIText(PlayerState state, int x, int y);
+void RenderUIText(PlayerState state, int x, int y, Enemy enemy);
 
