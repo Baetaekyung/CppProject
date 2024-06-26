@@ -1,4 +1,8 @@
 #pragma once
+#include <conio.h>
+#include <fcntl.h>
+#include "Console.h"
+#include "Object.h"
 
 enum class EnemyType
 {
@@ -37,10 +41,7 @@ class Enemy : public Object
 {
 public:
 	Enemy();
-
-	Enemy(EnemyType type, int health, int damage,
-		int agility, int armor,
-		int criticalPercent, int criticalMultiplier, bool myTurn);
+	Enemy(EnemyType type, Stat enemyStat, bool myTurn = false);
 public:
 	void GetDamage(int damage);
 	void Dead();
