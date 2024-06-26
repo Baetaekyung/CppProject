@@ -146,6 +146,7 @@
     </ClCompile>
     <ClCompile Include="SlashEffect.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>

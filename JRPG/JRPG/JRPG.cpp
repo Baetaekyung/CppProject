@@ -4,11 +4,15 @@
 #include "TitleScene.h"
 #include "Console.h"
 #include "Stage.h"
+#include "GameManager.h"
 
 int main()
 {
 	Enemy enemy = Enemy(EnemyType::GOBLIN, 0, 0, 0, 0, 0, 0, true);
 	Stage stage = Stage(StageType::One, enemy);
+	Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
+	GameManager::player = player;
+
 	FullScreen();
 	SetCursorVisual(false, 1);
 	if (!TitleScene())
