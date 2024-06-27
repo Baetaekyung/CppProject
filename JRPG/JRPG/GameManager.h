@@ -4,7 +4,7 @@ class GameManager
 {
 public:
 	static GameManager _gameManager;
-	static Player player;
+	static Player _player;
 private:
 	GameManager();
 };

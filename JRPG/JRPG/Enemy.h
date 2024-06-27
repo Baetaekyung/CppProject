@@ -54,8 +54,6 @@ public:
 
 	void Defence(int damage) override;
 
-	void RunAway() override;
-
 	void UseItem() override;
 
 	void UseSkill() override;

@@ -83,11 +83,6 @@ void Enemy::Update()
 		Attack();
 	}
 	break;
-	case (int)Behavior::RUNAWAY:
-	{
-		RunAway();
-	}
-	break;
 	}
 
 	enemyTurn = false;
@@ -122,26 +117,6 @@ void Enemy::Defence(int damage)
 	int applyDamage = 
 		(damage - stat.armor) > 1 ? (damage - stat.armor) : 1;
 	GetDamage(applyDamage);
-}
-
-void Enemy::RunAway()
-{
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
-	wcout << nameOfEnemy << L"의 도망시도!!" << '\n';
-
-	srand((unsigned int)time(NULL));
-	int success = rand() % 3 + 1;
-
-	if (success == 1)
-	{
-		wcout << nameOfEnemy << L"이 도망쳤다!" << '\n';
-		wcout << nameOfEnemy << L"전투가 종료되었다." << '\n';
-	}
-	else 
-	{
-		wcout << nameOfEnemy << L"이 도망가는데에 실패했다!" << '\n';
-	}
-	int curmode = _setmode(_fileno(stdout), prevmode);
 }
 
 void Enemy::UseItem()

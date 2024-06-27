@@ -58,7 +58,7 @@ void RenderBattleUI(Stage stage, Enemy enemy)
 				break;
 			}
 
-			SelectPosDownController(keyControl, originy, &posY);
+			SelectPosDownController(keyControl, originy, SelectType::Select, &posY);
 		}
 	}
 }
@@ -87,9 +87,7 @@ void RenderDetailUIText(PlayerState state, int x, int y)
 		RenderInTextUI(x, y + 5, L"공격할 적을 선택하세요!");
 		RenderInTextUI(x, y + 9, _enemy.nameOfEnemy);
 
-		while (true) {
-			SelectPosDownController(attackSet, y, SelectType::Attack);
-		}
+		SelectPosDownController(attackSet, y, SelectType::Attack, 0);
 		break;
 	case PlayerState::Skill:
 		RenderOutLineUI(x, y);
@@ -132,7 +130,8 @@ void RenderInTextUI(int x, int y, wstring str) {
 	wcout << str;
 }
 
-void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType, int* posY = nullptr) {
+void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType, int* posY) {
+	bool wasPressedEnter = false;
 	while (true) {
 		Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
 		cout << ">";
@@ -164,30 +163,35 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 			break;
 		case KEY::Enter:
 		{
-			system("cls");
-			switch (selectType)
-			{
-			case SelectType::Select:
-				RenderDetailUI(_currentState);
-				break;
-			case SelectType::Attack:
-				GameManager::player.Attack();
-				RenderActionResultUI();
-				break;
-			case SelectType::Skill:
-				GameManager::player.UseSkill();
-				RenderActionResultUI();
-				break;
-			case SelectType::Item:
-				GameManager::player.UseItem();
-				RenderActionResultUI();
-				break;
-			default:
-				break;
-			}
+			wasPressedEnter = true;
 		}
 		break;
 		}
+
+		if (wasPressedEnter) {
+			break;
+		}
+	}
+
+	system("cls");
+	switch (selectType)
+	{
+	case SelectType::Select:
+		RenderDetailUI(_currentState);
+		break;
+	case SelectType::Attack:
+		GameManager::_player.Attack();
+		RenderActionResultUI(L"공격으로 피해를 입혔습니다!");
+		break;
+	case SelectType::Skill:
+		GameManager::_player.UseSkill();
+		/*RenderActionResultUI();*/
+		break;
+	case SelectType::Item:
+		GameManager::_player.UseItem();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -197,5 +201,9 @@ void SelectPosRALController(KeyControl keyControl, int originY) {
 
 void RenderActionResultUI(wstring str)
 {
-
+	COORD Resolution = GetConsoleResolution();
+	int x = Resolution.X / 9;
+	int y = Resolution.Y / 1.8;
+	Gotoxy(x + 24 + (105 / 2) - str.length(), y + 5);
+	wcout << str;
 }
