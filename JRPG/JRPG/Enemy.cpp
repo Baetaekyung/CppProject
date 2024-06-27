@@ -3,7 +3,8 @@
 
 Enemy::Enemy()
 {
-
+	enemyType = EnemyType::GOBLIN;
+	nameOfEnemy = L"°íºí¸°";
 }
 
 Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
@@ -41,6 +42,11 @@ Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
 	}
 }
 
+void Enemy::AttackPlayer(Player player, int damage)
+{
+	player.Defence(damage);
+}
+
 void Enemy::GetDamage(int damage)
 {
 	currentHp -= damage;
@@ -65,8 +71,6 @@ void Enemy::Update()
 	srand((unsigned int)time(NULL));
 	int randNum = rand() % 3 + 1;
 
-	Render();
-
 	switch (randNum)
 	{
 	case (int)Behavior::USEITEM:
@@ -77,11 +81,6 @@ void Enemy::Update()
 	case (int)Behavior::ATTACK:
 	{
 		Attack();
-	}
-	break;
-	case (int)Behavior::RUNAWAY:
-	{
-		RunAway();
 	}
 	break;
 	}
@@ -99,18 +98,14 @@ void Enemy::Attack()
 	srand((unsigned int)time(NULL));
 	int randNum = rand() % 2 + 1;
 	
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
 	if (randNum == 1)
 	{
-		
 		int damage = stat.strength;
-		
 	}
 	else
 	{
 		UseSkill();
 	}
-	int curmode = _setmode(_fileno(stdout), prevmode);
 }
 
 void Enemy::Defence(int damage)
@@ -120,29 +115,8 @@ void Enemy::Defence(int damage)
 	GetDamage(applyDamage);
 }
 
-void Enemy::RunAway()
-{
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
-	
-
-	srand((unsigned int)time(NULL));
-	int success = rand() % 3 + 1;
-
-	if (success == 1)
-	{
-		
-	}
-	else 
-	{
-		
-	}
-	int curmode = _setmode(_fileno(stdout), prevmode);
-}
-
 void Enemy::UseItem()
 {
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
-
 	srand((unsigned int)time(NULL));
 	int randNum = rand() % 4 + 1;
 
@@ -170,14 +144,10 @@ void Enemy::UseItem()
 	}
 	break;
 	}
-
-	int curmode = _setmode(_fileno(stdout), prevmode);
 }
 
 void Enemy::UseSkill()
 {
-	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
-
 	srand((unsigned int)time(NULL));
 	int randNum = rand() % 5 + 1;
 
@@ -210,6 +180,4 @@ void Enemy::UseSkill()
 	}
 	break;
 	}
-
-	int curmode = _setmode(_fileno(stdout), prevmode);
 }

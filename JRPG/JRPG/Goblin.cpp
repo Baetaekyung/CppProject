@@ -14,4 +14,16 @@ Goblin::Goblin(Stat goblinStat)
 	enemyType = EnemyType::GOBLIN;
 
 	nameOfEnemy = L"°íºí¸°";
+
+	SetVisual();
+}
+
+void Goblin::SetVisual()
+{
+	visual.push_back(L"  |\\_/|");
+	visual.push_back(L"=( o O )=")
+	visual.push_back(L" /\\ \" / \\")
+	visual.push_back(L"| |\_/| |")
+	visual.push_back(L"\_>---<_/")
+	visual.push_back(L"(___|___)")
 }

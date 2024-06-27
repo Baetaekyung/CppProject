@@ -4,6 +4,9 @@
 
 class Spider : public Enemy
 {
-	void DrawSpider();
+public:
+	Spider(Stat enemyStat);
+public:
+	void SetVisual();
 };
 

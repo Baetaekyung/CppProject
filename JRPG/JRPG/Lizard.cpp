@@ -14,4 +14,17 @@ Lizard::Lizard(Stat lizardStat)
 	enemyType = EnemyType::LIZARD;
 
 	nameOfEnemy = L"µµ¸¶¹ì";
+
+	SetVisual();
+}
+
+void Lizard::SetVisual()
+{
+	visual.push_back(L"                       )/_");
+	visual.push_back(L"             _.--..---\" - ,--c_");
+	visual.push_back(L"        \\L..'           ._O__)_");
+	visual.push_back(L",-.     _.+  _  \\..--( /         ");
+	visual.push_back(L"  `\\.-''__.-' \\ (     \\_      ");
+	visual.push_back(L"    `'''       `\\__   /\\");
+	visual.push_back(L"                ')");
 }

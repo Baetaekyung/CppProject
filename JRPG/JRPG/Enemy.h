@@ -1,8 +1,10 @@
 #pragma once
+#include <vector>
 #include <conio.h>
 #include <fcntl.h>
 #include "Console.h"
 #include "Object.h"
+#include "Player.h"
 
 enum class EnemyType
 {
@@ -43,6 +45,7 @@ public:
 	Enemy();
 	Enemy(EnemyType type, Stat enemyStat, bool myTurn = false);
 public:
+	void AttackPlayer(Player player, int damage);
 	void GetDamage(int damage);
 	void Dead();
 
@@ -55,12 +58,11 @@ public:
 
 	void Defence(int damage) override;
 
-	void RunAway() override;
-
 	void UseItem() override;
 
 	void UseSkill() override;
 public:
+	std::vector<wstring> visual;
 	wstring nameOfEnemy;
 	Stat stat;
 	int currentHp;

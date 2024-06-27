@@ -1,12 +1,28 @@
 #include "Spider.h"
 #include "Console.h"
 
-void Spider::DrawSpider()
+Spider::Spider(Stat enemyStat)
 {
-	cout << "||  ||" << '\n';
-	cout << "\\()//" << '\n';
-	cout << "//(__)\\" << '\n';
-	cout << "||    ||" << '\n';
+	stat.agility = enemyStat.agility;
+	stat.armor = enemyStat.armor;
+	stat.ciritalChance = enemyStat.ciritalChance;
+	stat.ciritalDamage = enemyStat.ciritalDamage;
+	stat.maxHealth = enemyStat.maxHealth;
+	stat.strength = enemyStat.strength;
 
-	Render();
+	currentHp = stat.maxHealth;
+
+	enemyType = EnemyType::SPIDER;
+
+	nameOfEnemy = L"°Å¹Ì";
+
+	SetVisual();
+}
+
+void Spider::SetVisual()
+{
+	visual.push_back(L"||  ||");
+	visual.push_back(L"\\()//");
+	visual.push_back(L"//(__)\\");
+	visual.push_back(L"||    ||");
 }

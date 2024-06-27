@@ -5,14 +5,7 @@ class Goblin : public Enemy
 {
 public:
 	Goblin(Stat goblinStat);
-	wstring visual[7] =
-	{
-		 L"  |\\_/|",
-		 L"=( o O )=",
-		 L" /\\ \" / \\",
-		 L"| |\_/| |",
-		 L"\_>---<_/",
-		 L"(___|___)",
-	};
+public:
+	void SetVisual();
 };
 

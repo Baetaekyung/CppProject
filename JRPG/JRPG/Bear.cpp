@@ -15,4 +15,17 @@ Bear::Bear(Stat bearStat)
 	enemyType = EnemyType::BEAR;
 
 	nameOfEnemy = L"°õ";
+
+	SetVisual();
+}
+
+void Bear::SetVisual()
+{
+	visual.push_back(L"__         __");
+	visual.push_back(L" / \\. - \"\"\"-./  \"");
+	visual.push_back(L"\\    -    -    /");
+	visual.push_back(L" |   o   o     | ");
+	visual.push_back(L" \\  . - '''-. /");
+	visual.push_back(L"  '-\\__Y__/-'");
+	visual.push_back(L"     `---`");
 }
