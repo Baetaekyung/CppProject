@@ -20,6 +20,7 @@ Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
 
 	enemyTurn = myTurn;
 	currentHp = this->stat.maxHealth;
+	enemyDamage = stat.strength;
 
 	switch (enemyType)
 	{
@@ -91,6 +92,11 @@ void Enemy::Update()
 void Enemy::Render()
 {
 	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
+
+	COORD Resolution = GetConsoleResolution();
+	int x = Resolution.X / 6;
+	int y = Resolution.Y / 5;
+	Gotoxy(x - 6, y);
 
 	if (visual.size() != 0)
 	{

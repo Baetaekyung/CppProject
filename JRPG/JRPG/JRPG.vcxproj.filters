@@ -63,6 +63,9 @@
     <ClCompile Include="Lizard.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Information.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h">
@@ -108,6 +111,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Lizard.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Information.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
