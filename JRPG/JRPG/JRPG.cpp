@@ -21,7 +21,7 @@ int main()
 	while (true)
 	{
 		//system("cls");
-		RenderBattleUI(stage, stage._isHasEnemy);
+		RenderBattleUI(stage._isHasEnemy);
 	}
 
 	//Player player = Player(Stat{ 1, 1, 1, 1, 1, 1});

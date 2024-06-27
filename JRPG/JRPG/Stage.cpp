@@ -21,13 +21,13 @@ KeyControl::KeyControl(int x, int y, int clamp, int downValueX, int downValueY) 
 
 PlayerState _currentState = PlayerState::None;
 Enemy _enemy;
-void RenderBattleUI(Stage stage, Enemy enemy)
+int posY = 0;
+void RenderBattleUI(Enemy enemy)
 {
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 6;
 	int y = Resolution.Y / 1.54;
 	int originy = y;
-	int posY = 0;
 	bool fristRender = true;
 	KeyControl keyControl = KeyControl(x, y, 9, 2, 3);
 	_enemy = enemy;
@@ -75,7 +75,7 @@ void RenderDetailUI(PlayerState state) {
 
 void RenderDetailUIText(PlayerState state, int x, int y)
 {
-	KeyControl attackSet = KeyControl(x, 0 , 0 , y , 0);
+	KeyControl attackSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 0 , 0 , 0);
 	Gotoxy(x, y);
 	switch (state)
 	{
@@ -132,9 +132,11 @@ void RenderInTextUI(int x, int y, wstring str) {
 
 void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType, int* posY) {
 	bool wasPressedEnter = false;
+	Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
+	wcout << L">";
+
 	while (true) {
-		Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
-		cout << ">";
+		Sleep(100);
 
 		KEY eKey = KeyController();
 		switch (eKey)
@@ -144,9 +146,9 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 			{
 				posY++;
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
-				cout << " ";
+				wcout << L" ";
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y -= keyControl._downValueY);
-				cout << ">";
+				wcout << L">";
 				Sleep(100);
 			}
 			break;
@@ -155,9 +157,9 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 			{
 				posY--;
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
-				cout << " ";
+				wcout << L" ";
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y += keyControl._downValueY);
-				cout << ">";
+				wcout << L">";
 				Sleep(100);
 			}
 			break;
@@ -169,29 +171,42 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		}
 
 		if (wasPressedEnter) {
+			system("cls");
 			break;
 		}
 	}
 
-	system("cls");
-	switch (selectType)
-	{
-	case SelectType::Select:
+	COORD Resolution = GetConsoleResolution();
+
+	if (selectType == SelectType::Select) {
 		RenderDetailUI(_currentState);
-		break;
-	case SelectType::Attack:
+	}
+	else if (selectType == SelectType::Attack) {
+		int x = Resolution.X / 9;
+		int y = Resolution.Y / 1.8;
+
+		wstring str = L"공격으로 피해를 입혔습니다!";
+		KeyControl resultControl = KeyControl(x + 24 + (105 / 2) - str.length() - 0.5f, y + 9, 0, 0, 0);
 		GameManager::_player.Attack();
-		RenderActionResultUI(L"공격으로 피해를 입혔습니다!");
-		break;
-	case SelectType::Skill:
+		RenderOutLineUI(x, y);
+		RenderActionResultUI(str);
+		SelectPosDownController(resultControl, y, SelectType::Result, 0);
+	}
+	else if (selectType == SelectType::Skill) {
 		GameManager::_player.UseSkill();
 		/*RenderActionResultUI();*/
-		break;
-	case SelectType::Item:
+	}
+	else if (selectType == SelectType::Item) {
 		GameManager::_player.UseItem();
-		break;
-	default:
-		break;
+	}
+	else if (selectType == SelectType::Result) {
+		int x = Resolution.X / 6;
+		int y = Resolution.Y / 1.54;
+
+		system("cls");
+		KeyControl selectControl = KeyControl(x, y, 9, 2, 3);
+		RenderOutLineUI(x, y);
+		SelectPosDownController(selectControl, y, SelectType::Select, posY);
 	}
 }
 
@@ -204,6 +219,6 @@ void RenderActionResultUI(wstring str)
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 9;
 	int y = Resolution.Y / 1.8;
-	Gotoxy(x + 24 + (105 / 2) - str.length(), y + 5);
+	Gotoxy(x + 24 + (105 / 2) - str.length(), y + 9);
 	wcout << str;
 }

@@ -6,7 +6,7 @@ enum class StageType {
 };
 
 enum class SelectType {
-	Select, Attack, Skill, Item
+	Select, Attack, Skill, Item, Result
 };
 
 class Stage {
@@ -38,7 +38,7 @@ public:
 		int downValueY);
 };
 
-void RenderBattleUI(Stage stage, Enemy enemy);
+void RenderBattleUI(Enemy enemy);
 void RenderDetailUI(PlayerState state);
 void RenderDetailUIText(PlayerState state, int x, int y);
 void RenderOutLineUI(int x, int y);
