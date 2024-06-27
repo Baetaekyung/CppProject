@@ -1,11 +1,10 @@
 #pragma once
-
 #include "Enemy.h"
 
-class Spider : public Enemy
+class Lizard : public Enemy
 {
 public:
-	Spider(Stat enemyStat);
+	Lizard(Stat lizardStat);
 public:
 	void SetVisual();
 };

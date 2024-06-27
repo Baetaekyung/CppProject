@@ -1,4 +1,10 @@
 #pragma once
+#include <vector>
+#include <conio.h>
+#include <fcntl.h>
+#include "Console.h"
+#include "Object.h"
+#include "Player.h"
 
 enum class EnemyType
 {
@@ -37,11 +43,9 @@ class Enemy : public Object
 {
 public:
 	Enemy();
-
-	Enemy(EnemyType type, int health, int damage,
-		int agility, int armor,
-		int criticalPercent, int criticalMultiplier, bool myTurn);
+	Enemy(EnemyType type, Stat enemyStat, bool myTurn = false);
 public:
+	void AttackPlayer(Player player);
 	void GetDamage(int damage);
 	void Dead();
 
@@ -58,9 +62,11 @@ public:
 
 	void UseSkill() override;
 public:
+	std::vector<wstring> visual;
 	wstring nameOfEnemy;
 	Stat stat;
 	int currentHp;
+	int enemyDamage;
 	EnemyType enemyType;
 	bool enemyTurn = true;
 	bool isDead = false;

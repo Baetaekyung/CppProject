@@ -1,11 +1,10 @@
 #pragma once
-
 #include "Enemy.h"
 
-class Spider : public Enemy
+class Goblin : public Enemy
 {
 public:
-	Spider(Stat enemyStat);
+	Goblin(Stat goblinStat);
 public:
 	void SetVisual();
 };
