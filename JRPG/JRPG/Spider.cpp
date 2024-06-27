@@ -21,8 +21,8 @@ Spider::Spider(Stat enemyStat)
 
 void Spider::SetVisual()
 {
-	visual.push_back(L"||  ||");
-	visual.push_back(L"\\()//");
+	visual.push_back(L" ||  ||");
+	visual.push_back(L" \\()//");
 	visual.push_back(L"//(__)\\");
 	visual.push_back(L"||    ||");
 }

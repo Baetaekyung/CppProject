@@ -21,9 +21,9 @@ Goblin::Goblin(Stat goblinStat)
 void Goblin::SetVisual()
 {
 	visual.push_back(L"  |\\_/|");
-	visual.push_back(L"=( o O )=")
-	visual.push_back(L" /\\ \" / \\")
-	visual.push_back(L"| |\_/| |")
-	visual.push_back(L"\_>---<_/")
-	visual.push_back(L"(___|___)")
+	visual.push_back(L"=( o O )=");
+	visual.push_back(L" /\\ \" / \\");
+	visual.push_back(L"| |\_/| |");
+	visual.push_back(L"\_>---<_/");
+	visual.push_back(L"(___|___)");
 }

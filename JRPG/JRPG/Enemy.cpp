@@ -4,7 +4,7 @@
 Enemy::Enemy()
 {
 	enemyType = EnemyType::GOBLIN;
-	nameOfEnemy = L"고블린";
+	nameOfEnemy = L"";
 }
 
 Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
@@ -42,9 +42,9 @@ Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
 	}
 }
 
-void Enemy::AttackPlayer(Player player, int damage)
+void Enemy::AttackPlayer(Player player)
 {
-	player.Defence(damage);
+	player.Defence(enemyDamage);
 }
 
 void Enemy::GetDamage(int damage)
@@ -90,7 +90,16 @@ void Enemy::Update()
 
 void Enemy::Render()
 {
-	
+	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
+
+	if (visual.size() != 0)
+	{
+		for (int i = 0; i < visual.size(); i++)
+		{
+			wcout << visual[i] << '\n';
+		}
+	}
+	int curmode = _setmode(_fileno(stdout), prevmode);
 }
 
 void Enemy::Attack()
@@ -100,7 +109,15 @@ void Enemy::Attack()
 	
 	if (randNum == 1)
 	{
-		int damage = stat.strength;
+		int critical = rand() % 100 + 1;
+		if(critical < stat.ciritalChance)
+		{
+			enemyDamage = stat.strength;
+		}
+		else
+		{
+			enemyDamage = stat.strength * (1 + stat.ciritalDamage);
+		}
 	}
 	else
 	{
@@ -108,7 +125,7 @@ void Enemy::Attack()
 	}
 }
 
-void Enemy::Defence(int damage)
+void Enemy::Defence(int damage) // 이걸 호출해서 데미지를 주십시오!!
 {
 	int applyDamage = 
 		(damage - stat.armor) > 1 ? (damage - stat.armor) : 1;

@@ -45,7 +45,7 @@ public:
 	Enemy();
 	Enemy(EnemyType type, Stat enemyStat, bool myTurn = false);
 public:
-	void AttackPlayer(Player player, int damage);
+	void AttackPlayer(Player player);
 	void GetDamage(int damage);
 	void Dead();
 
@@ -66,6 +66,7 @@ public:
 	wstring nameOfEnemy;
 	Stat stat;
 	int currentHp;
+	int enemyDamage;
 	EnemyType enemyType;
 	bool enemyTurn = true;
 	bool isDead = false;
