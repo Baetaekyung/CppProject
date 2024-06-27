@@ -13,7 +13,7 @@ class Stage {
 public:
 	StageType _currentStage;
 	Enemy _isHasEnemy = 
-		Enemy(EnemyType::GOBLIN, 0, 0, 0, 0, 0, 0, true);
+		Enemy(EnemyType::GOBLIN, Stat{0,0,0,0,0,0}, true);
 
 	Stage(StageType stage, Enemy enemy);
 
