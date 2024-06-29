@@ -17,6 +17,7 @@ int main()
 	Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
 	GameManager::_player = player;
 
+
 	FullScreen();
 	SetCursorVisual(false, 1);
 	if (!TitleScene())
