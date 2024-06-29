@@ -5,6 +5,7 @@
 #include "Stage.h"
 #include "TitleScene.h"
 #include "GameManager.h"
+#include "Information.h";
 
 
 Stage::Stage(StageType stage, Enemy enemy) {
@@ -24,6 +25,7 @@ PlayerState _currentState = PlayerState:: None;
 Enemy _enemy;
 void RenderBattleUI(Enemy enemy)
 {
+
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 6;
 	int y = Resolution.Y / 1.54;
@@ -39,9 +41,13 @@ void RenderBattleUI(Enemy enemy)
 			RenderDetailUI(_currentState);
 			fristRender = false;
 		}
+		RenderEnemyInfo(enemy);
+		enemy.Render();
 
 		while (true)
 		{
+			RenderEnemyInfo(enemy);
+			enemy.Render();
 			SelectPosDownController(keyControl, originy, SelectType::Select);
 		}
 	}
@@ -139,6 +145,7 @@ void RenderInTextUI(int x, int y, wstring str) {
 void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType) {
 	bool wasPressedEnter = false;
 	int posY = 0;
+#pragma region Controller
 	Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
 	wcout << L">";
 
@@ -199,6 +206,7 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 			break;
 		}
 	}
+#pragma endregion
 
 	COORD Resolution = GetConsoleResolution();
 

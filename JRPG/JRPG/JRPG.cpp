@@ -5,11 +5,14 @@
 #include "Console.h"
 #include "Stage.h"
 #include "GameManager.h"
+#include "Enemy.h"
+#include "Goblin.h"
+#include "Information.h"
 
 int main()
 {
 	srand((unsigned int)time(NULL));
-	Enemy enemy = Enemy(EnemyType::GOBLIN, Stat{0,0,0,0,0,0}, true);
+	Goblin enemy = Goblin(Stat{10,10,10,10,10,10});
 	Stage stage = Stage(StageType::One, enemy);
 	Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
 	GameManager::_player = player;
@@ -21,7 +24,8 @@ int main()
 	stage._currentStage = (StageType)EnterAnimation();
 	while (true)
 	{
-		//system("cls");
+		RenderEnemyInfo(enemy);
+		enemy.Render();
 		RenderBattleUI(stage._isHasEnemy);
 	}
 
