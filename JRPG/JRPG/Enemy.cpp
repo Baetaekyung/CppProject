@@ -73,7 +73,7 @@ void Enemy::Update()
 	if (!enemyTurn) return;
 	
 	srand((unsigned int)time(NULL));
-	int randNum = rand() % 3 + 1;
+	int randNum = rand() % 2 + 1;
 
 	switch (randNum)
 	{
@@ -122,12 +122,12 @@ void Enemy::Attack()
 		if(critical < stat.ciritalChance)
 		{
 			enemyDamage = stat.strength;
-			GameManager::_player.Defence(enemyDamage);
+			AttackPlayer();
 		}
 		else
 		{
 			enemyDamage = stat.strength * (1 + stat.ciritalDamage);
-			GameManager::_player.Defence(enemyDamage);
+			AttackPlayer();
 		}
 	}
 	else
@@ -184,8 +184,8 @@ void Enemy::UseSkill()
 	{
 	case (int)SkillType::DOUBLEATTACK:
 	{
-		GameManager::_player.Defence(enemyDamage);
-		GameManager::_player.Defence(enemyDamage);
+		AttackPlayer();
+		AttackPlayer();
 	}
 	break;
 	case (int)SkillType::ARMORUP:
