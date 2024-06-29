@@ -19,7 +19,7 @@ void RenderEnemyInfo(Enemy enemy)
 	Gotoxy(x + 20, y - 5);
 	wcout << L"적의 공격력 : " << enemy.stat.strength << L"적의 크리티컬 확률 : " << enemy.stat.ciritalChance << L"적의 치명타 데미지 : " << enemy.stat.ciritalDamage;
 	Gotoxy(x - 6, y - 4);
-	wcout << L"██                                                                                                                                      ██"
+	wcout << L"                                                                                                                                          "
 		<< '\n';
 	Gotoxy(x - 6, y - 3);
 	wcout << L"██                                                                                                                                      ██" 

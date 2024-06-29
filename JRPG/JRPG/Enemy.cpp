@@ -1,5 +1,6 @@
 #include <io.h>
 #include "Enemy.h"
+#include "Mci.h"
 
 Enemy::Enemy()
 {
@@ -43,9 +44,10 @@ Enemy::Enemy(EnemyType type, Stat enemyStat, bool myTurn)
 	}
 }
 
-void Enemy::AttackPlayer(Player player)
+void Enemy::AttackPlayer()
 {
-	player.Defence(enemyDamage);
+	cout << "플레이어를 공격했다.";
+	GameManager::_player.Defence(enemyDamage);
 }
 
 void Enemy::GetDamage(int damage)
@@ -94,15 +96,15 @@ void Enemy::Render()
 	int prevmode = _setmode(_fileno(stdout), _O_U16TEXT);
 
 	COORD Resolution = GetConsoleResolution();
-	int x = Resolution.X / 6;
+	int x = Resolution.X / 2;
 	int y = Resolution.Y / 5;
-	Gotoxy(x - 6, y);
-
+	
 	if (visual.size() != 0)
 	{
 		for (int i = 0; i < visual.size(); i++)
 		{
-			wcout << visual[i] << '\n';
+			Gotoxy(x - 6, y + i);
+			wcout << visual[i];
 		}
 	}
 	int curmode = _setmode(_fileno(stdout), prevmode);
@@ -119,10 +121,12 @@ void Enemy::Attack()
 		if(critical < stat.ciritalChance)
 		{
 			enemyDamage = stat.strength;
+			GameManager::_player.Defence(enemyDamage);
 		}
 		else
 		{
 			enemyDamage = stat.strength * (1 + stat.ciritalDamage);
+			GameManager::_player.Defence(enemyDamage);
 		}
 	}
 	else
@@ -136,6 +140,7 @@ void Enemy::Defence(int damage) // 이걸 호출해서 데미지를 주십시오!!
 	int applyDamage = 
 		(damage - stat.armor) > 1 ? (damage - stat.armor) : 1;
 	GetDamage(applyDamage);
+	PlayEffect(TEXT("Sounds//hitSound.wav"));
 }
 
 void Enemy::UseItem()
@@ -178,8 +183,8 @@ void Enemy::UseSkill()
 	{
 	case (int)SkillType::DOUBLEATTACK:
 	{
-		Attack();
-		Attack();
+		GameManager::_player.Defence(enemyDamage);
+		GameManager::_player.Defence(enemyDamage);
 	}
 	break;
 	case (int)SkillType::ARMORUP:
