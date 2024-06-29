@@ -23,8 +23,6 @@ void PlayBgm(LPCWSTR soundname, int volume)
 		+ std::to_wstring(volume);
 	mciSendString(msg.c_str(), NULL, NULL, NULL);
 
-
-
 	MCI_PLAY_PARMS playBgm;
 	mciSendCommand(BgmId, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD_PTR)&playBgm);
 }

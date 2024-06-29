@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include "Console.h"
 #include "Object.h"
-#include "Player.h"
+#include "GameManager.h"
 
 enum class EnemyType
 {
@@ -45,7 +45,7 @@ public:
 	Enemy();
 	Enemy(EnemyType type, Stat enemyStat, bool myTurn = false);
 public:
-	void AttackPlayer(Player player);
+	void AttackPlayer();
 	void GetDamage(int damage);
 	void Dead();
 
