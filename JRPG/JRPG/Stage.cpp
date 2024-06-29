@@ -1,5 +1,6 @@
 ﻿#include<fcntl.h>
 #include<io.h>
+#include "Player.h"
 #include "Console.h"
 #include "Stage.h"
 #include "TitleScene.h"
@@ -19,7 +20,7 @@ KeyControl::KeyControl(int x, int y, int clamp, int downValueX, int downValueY) 
 	_downValueY = downValueY;
 }
 
-PlayerState _currentState = PlayerState::None;
+PlayerState _currentState = PlayerState:: None;
 Enemy _enemy;
 int posY = 0;
 void RenderBattleUI(Enemy enemy)
@@ -27,8 +28,8 @@ void RenderBattleUI(Enemy enemy)
 	COORD Resolution = GetConsoleResolution();
 	int x = Resolution.X / 6;
 	int y = Resolution.Y / 1.54;
-	int originy = y;
 	bool fristRender = true;
+	int originy = y;
 	KeyControl keyControl = KeyControl(x, y, 9, 2, 3);
 	_enemy = enemy;
 
@@ -76,6 +77,7 @@ void RenderDetailUI(PlayerState state) {
 void RenderDetailUIText(PlayerState state, int x, int y)
 {
 	KeyControl attackSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 0 , 0 , 0);
+	KeyControl skillSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 2 , 0 , 0);
 	Gotoxy(x, y);
 	switch (state)
 	{
@@ -90,6 +92,13 @@ void RenderDetailUIText(PlayerState state, int x, int y)
 		SelectPosDownController(attackSet, y, SelectType::Attack, 0);
 		break;
 	case PlayerState::Skill:
+		RenderOutLineUI(x, y);
+		RenderInTextUI(x, y + 5, L"사용할 스킬을 선택하세요!");
+		for (int i = 1; i < GameManager::_player.skills.size() + 1; ++i) {
+			RenderInTextUI(x, y + (i * 4), GameManager::_player.skills[i - 1].name);
+		}
+
+		SelectPosDownController(attackSet, y, SelectType::Skill, 0);
 		RenderOutLineUI(x, y);
 		break;
 	case PlayerState::Item:
@@ -193,20 +202,14 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		SelectPosDownController(resultControl, y, SelectType::Result, 0);
 	}
 	else if (selectType == SelectType::Skill) {
-		GameManager::_player.UseSkill();
-		/*RenderActionResultUI();*/
+
 	}
 	else if (selectType == SelectType::Item) {
 		GameManager::_player.UseItem();
 	}
 	else if (selectType == SelectType::Result) {
-		int x = Resolution.X / 6;
-		int y = Resolution.Y / 1.54;
-
-		system("cls");
-		KeyControl selectControl = KeyControl(x, y, 9, 2, 3);
-		RenderOutLineUI(x, y);
-		SelectPosDownController(selectControl, y, SelectType::Select, posY);
+		_currentState = PlayerState::None;
+		RenderBattleUI(_enemy);
 	}
 }
 

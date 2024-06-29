@@ -8,6 +8,7 @@
 
 int main()
 {
+	srand((unsigned int)time(NULL));
 	Enemy enemy = Enemy(EnemyType::GOBLIN, Stat{0,0,0,0,0,0}, true);
 	Stage stage = Stage(StageType::One, enemy);
 	Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
