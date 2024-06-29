@@ -22,7 +22,6 @@ KeyControl::KeyControl(int x, int y, int clamp, int downValueX, int downValueY) 
 
 PlayerState _currentState = PlayerState:: None;
 Enemy _enemy;
-int posY = 0;
 void RenderBattleUI(Enemy enemy)
 {
 	COORD Resolution = GetConsoleResolution();
@@ -43,23 +42,7 @@ void RenderBattleUI(Enemy enemy)
 
 		while (true)
 		{
-			switch (posY)
-			{
-			case 0:
-				_currentState = PlayerState::Attack;
-				break;
-			case 1:
-				_currentState = PlayerState::Skill;
-				break;
-			case 2:
-				_currentState = PlayerState::Item;
-				break;
-			case 3:
-				_currentState = PlayerState::Defence;
-				break;
-			}
-
-			SelectPosDownController(keyControl, originy, SelectType::Select, &posY);
+			SelectPosDownController(keyControl, originy, SelectType::Select);
 		}
 	}
 }
@@ -77,7 +60,7 @@ void RenderDetailUI(PlayerState state) {
 void RenderDetailUIText(PlayerState state, int x, int y)
 {
 	KeyControl attackSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 0 , 0 , 0);
-	KeyControl skillSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 2 , 0 , 0);
+	KeyControl skillSet = KeyControl((x + 24 + (105 / 2) - _enemy.nameOfEnemy.length()) - 1, y + 9 , 4, 2 , 4);
 	Gotoxy(x, y);
 	switch (state)
 	{
@@ -89,23 +72,37 @@ void RenderDetailUIText(PlayerState state, int x, int y)
 		RenderInTextUI(x, y + 5, L"공격할 적을 선택하세요!");
 		RenderInTextUI(x, y + 9, _enemy.nameOfEnemy);
 
-		SelectPosDownController(attackSet, y, SelectType::Attack, 0);
+		SelectPosDownController(attackSet, y, SelectType::Attack);
 		break;
 	case PlayerState::Skill:
 		RenderOutLineUI(x, y);
 		RenderInTextUI(x, y + 5, L"사용할 스킬을 선택하세요!");
 		for (int i = 1; i < GameManager::_player.skills.size() + 1; ++i) {
-			RenderInTextUI(x, y + (i * 4), GameManager::_player.skills[i - 1].name);
+			RenderInTextUI(x, y + (i * 4) + 5, GameManager::_player.skills[i - 1].name);
 		}
 
-		SelectPosDownController(attackSet, y, SelectType::Skill, 0);
+		SelectPosDownController(skillSet, y + 9, SelectType::Skill);
 		RenderOutLineUI(x, y);
 		break;
 	case PlayerState::Item:
 		RenderOutLineUI(x, y);
+		RenderInTextUI(x, y + 5, L"사용할 스킬을 선택하세요!");
+		for (int i = 1; i < GameManager::_player.itmes.size() + 1; ++i) {
+			RenderInTextUI(x, y + (i * 4) + 5, GameManager::_player.itmes[i - 1]._name);
+		}
+
+		SelectPosDownController(attackSet, y + 9, SelectType::Item);
+		RenderOutLineUI(x, y);
 		break;
 	case PlayerState::Defence:
-		// 즉시실행
+		system("cls");
+
+		GameManager::_player._isDefence = true;
+		wstring str = L"이번 공격을 방어합니다.";
+		KeyControl resultControl = KeyControl(x + 24 + (105 / 2) - str.length() - 0.5f, y + 9, 0, 0, 0);
+		RenderOutLineUI(x, y);
+		RenderActionResultUI(str);
+		SelectPosDownController(resultControl, y, SelectType::Result);
 		break;
 	}
 
@@ -139,12 +136,31 @@ void RenderInTextUI(int x, int y, wstring str) {
 	wcout << str;
 }
 
-void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType, int* posY) {
+void SelectPosDownController(KeyControl keyControl, int originY, SelectType selectType) {
 	bool wasPressedEnter = false;
+	int posY = 0;
 	Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
 	wcout << L">";
 
 	while (true) {
+		if (selectType == SelectType::Select) {
+			switch (posY)
+			{
+			case 0:
+				_currentState = PlayerState::Attack;
+				break;
+			case 1:
+				_currentState = PlayerState::Skill;
+				break;
+			case 2:
+				_currentState = PlayerState::Item;
+				break;
+			case 3:
+				_currentState = PlayerState::Defence;
+				break;
+			}
+		}
+
 		Sleep(100);
 
 		KEY eKey = KeyController();
@@ -153,7 +169,7 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		case KEY::UP:
 			if (originY < keyControl._y)
 			{
-				posY++;
+				posY -= 1;
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
 				wcout << L" ";
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y -= keyControl._downValueY);
@@ -164,7 +180,7 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		case KEY::DOWN:
 			if (originY + keyControl._clamp > keyControl._y)
 			{
-				posY--;
+				posY += 1;
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y);
 				wcout << L" ";
 				Gotoxy(keyControl._x - keyControl._downValueX, keyControl._y += keyControl._downValueY);
@@ -180,7 +196,6 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		}
 
 		if (wasPressedEnter) {
-			system("cls");
 			break;
 		}
 	}
@@ -191,6 +206,7 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		RenderDetailUI(_currentState);
 	}
 	else if (selectType == SelectType::Attack) {
+		system("cls");
 		int x = Resolution.X / 9;
 		int y = Resolution.Y / 1.8;
 
@@ -199,13 +215,32 @@ void SelectPosDownController(KeyControl keyControl, int originY, SelectType sele
 		GameManager::_player.Attack();
 		RenderOutLineUI(x, y);
 		RenderActionResultUI(str);
-		SelectPosDownController(resultControl, y, SelectType::Result, 0);
+		SelectPosDownController(resultControl, y, SelectType::Result);
 	}
 	else if (selectType == SelectType::Skill) {
+		system("cls");
+		int x = Resolution.X / 9;
+		int y = Resolution.Y / 1.8;
 
+		wstring str = L"공격으로 피해를 입혔습니다!";
+		KeyControl resultControl = KeyControl(x + 24 + (105 / 2) - str.length() - 0.5f, y + 9, 0, 0, 0);
+		GameManager::_player.Attack();
+		RenderOutLineUI(x, y);
+		RenderActionResultUI(str);
+		SelectPosDownController(resultControl, y, SelectType::Result);
 	}
 	else if (selectType == SelectType::Item) {
+		system("cls");
+		int x = Resolution.X / 9;
+		int y = Resolution.Y / 1.8;
+
 		GameManager::_player.UseItem();
+		wstring str = L"회복하였습니다.";
+		KeyControl resultControl = KeyControl(x + 24 + (105 / 2) - str.length() - 0.5f, y + 9, 0, 0, 0);
+		GameManager::_player.Attack();
+		RenderOutLineUI(x, y);
+		RenderActionResultUI(str);
+		SelectPosDownController(resultControl, y, SelectType::Result);
 	}
 	else if (selectType == SelectType::Result) {
 		_currentState = PlayerState::None;

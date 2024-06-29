@@ -1,6 +1,7 @@
 #include <io.h>
 #include "Enemy.h"
 #include "Mci.h"
+#include "GameManager.h"
 
 Enemy::Enemy()
 {

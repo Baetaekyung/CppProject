@@ -1,10 +1,11 @@
+#pragma once
 #include <vector>
 #include <conio.h>
-#include <fcntl.h>
 #include "Console.h"
 #include "Object.h"
+#include "Enemy.h"
+#include "Item.h"
 
-#pragma once
 using std::vector;
 
 enum class PlayerState
@@ -29,10 +30,12 @@ public: // Deafult
 	int _currnetHealth; // 현재 체력
 	ObejectType _objectType;
 	vector<Skill> skills;
+	vector<Item> itmes;
+	bool _isDefence;
 	
 	Player(Stat stat);
 public: // Fnc
-	void AttackTarget(Enemy enemy);
+	void AttackTarget();
 	// Object을(를) 통해 상속됨
 	void Update() override;
 	void Render() override;

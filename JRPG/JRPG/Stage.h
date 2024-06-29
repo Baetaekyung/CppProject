@@ -44,6 +44,6 @@ void RenderDetailUIText(PlayerState state, int x, int y);
 void RenderOutLineUI(int x, int y);
 void RenderInTextUI(int x, int y, wstring str);
 void SelectPosDownController(KeyControl keyControl, int originY, 
-	SelectType selectType, int* posY = nullptr);
+	SelectType selectType);
 void SelectPosRALController(KeyControl keyControl, int originY);
 void RenderActionResultUI(wstring str);

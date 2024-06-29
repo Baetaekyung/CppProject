@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include "Console.h"
 #include "Object.h"
-#include "GameManager.h"
+#include "Player.h"
 
 enum class EnemyType
 {

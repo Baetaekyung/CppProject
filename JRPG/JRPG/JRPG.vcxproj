@@ -139,6 +139,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Information.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="JRPG.cpp" />
     <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="Mci.cpp">
@@ -165,6 +166,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Information.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Lizard.h" />
     <ClInclude Include="Mci.h" />
     <ClInclude Include="Object.h" />
