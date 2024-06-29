@@ -5,24 +5,27 @@
 #include "Console.h"
 #include "Stage.h"
 #include "GameManager.h"
+#include "Information.h"
+#include "Goblin.h"
+
 
 int main()
 {
-	Enemy enemy = Enemy(EnemyType::GOBLIN, Stat{0,0,0,0,0,0}, true);
-	Stage stage = Stage(StageType::One, enemy);
-	Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
-	GameManager::_player = player;
+	//Enemy enemy = Enemy(EnemyType::GOBLIN, Stat{0,0,0,0,0,0}, true);
+	//Stage stage = Stage(StageType::One, enemy);
+	//Player player = Player(Stat{ 10, 1000, 10, 50, 200, 100 });
+	//GameManager::_player = player;
 
-	FullScreen();
-	SetCursorVisual(false, 1);
-	if (!TitleScene())
-		return 0;
-	stage._currentStage = (StageType)EnterAnimation();
-	while (true)
-	{
-		//system("cls");
-		RenderBattleUI(stage._isHasEnemy);
-	}
+	//FullScreen();
+	//SetCursorVisual(false, 1);
+	//if (!TitleScene())
+	//	return 0;
+	//stage._currentStage = (StageType)EnterAnimation();
+	//while (true)
+	//{
+	//	//system("cls");
+	//	RenderBattleUI(stage._isHasEnemy);
+	//}
 
 	//Player player = Player(Stat{ 1, 1, 1, 1, 1, 1});
 	//while (true)
